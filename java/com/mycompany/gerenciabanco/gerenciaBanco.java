@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * @author allan
  */
-public class AgenciaBancaria {
+public class gerenciaBanco {
     
     static Scanner input = new Scanner(System.in);
     static ArrayList<Conta> contasBancarias;
@@ -23,7 +23,7 @@ public class AgenciaBancaria {
             System.out.println("1.Criar Conta");
             System.out.println("2.Depositar");
             System.out.println("3.Sacar");
-            System.out.println("4.Transferir");
+            System.out.println("4.Saldo");
             System.out.println("5.Listar");
             System.out.println("6.Sair");
             
@@ -40,7 +40,7 @@ public class AgenciaBancaria {
                     sacar();
                     break;
                 case 4:
-                    transferir();
+                    saldo();
                     break;
                 case 5:
                     listarContas();
@@ -61,13 +61,16 @@ public class AgenciaBancaria {
         System.out.println("\nNome: ");
         String nome = input.next();
         
+        System.out.println("\nSobrenome: ");
+        String sobrenome = input.next();
+        
         System.out.println("\nCPF: ");
         String cpf = input.next();
         
         System.out.println("\nEmail: ");
         String email = input.next();
         
-        Pessoa pessoa = new Pessoa(nome, cpf, email);
+        Pessoa pessoa = new Pessoa(nome, sobrenome, cpf, email);
         
         Conta conta = new Conta(pessoa);
         
@@ -122,31 +125,20 @@ public class AgenciaBancaria {
         
     }
     
-    public static void transferir() {
-        System.out.println("Número da conta do remetente: ");
-        int numeroContaRemetente = input.nextInt();
-        
-        Conta contaRemetente = encontrarConta(numeroContaRemetente);
-        
-        if(contaRemetente != null) {
-            System.out.println("Número da conta do destinatário: ");
-            int numeroContaDestinatario = input.nextInt();
-            
-            Conta contaDestinatario = encontrarConta(numeroContaDestinatario);
-            
-            if(contaDestinatario != null) {
-                System.out.println("Valor da transferência: ");
-                Double valor = input.nextDouble();
-                
-                contaRemetente.transferir(contaDestinatario, valor);
-            }else {
-                System.out.println("A conta para depósito não foi encontrada.");
+    public static void saldo() {
+        System.out.println("Número da conta: ");
+        int numeroConta = input.nextInt();
+        if(contasBancarias.size() > 0) {
+            for(Conta conta: contasBancarias) {
+                System.out.println("\nSeu saldo é de: " + conta.getSaldo());
             }
-        }else {
-            System.out.println("Conta para transferência não encontrada.");
+        } else {
+            System.out.println("Não há contas cadastradas.");
         }
         operacoes();
     }
+
+    
     public static void listarContas() {
         if(contasBancarias.size() > 0) {
             for(Conta conta: contasBancarias) {
@@ -158,4 +150,3 @@ public class AgenciaBancaria {
         operacoes();
     }
 }
-

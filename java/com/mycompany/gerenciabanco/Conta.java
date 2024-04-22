@@ -50,6 +50,7 @@ public class Conta {
     public String toString() {
         return "\nNúmero da conta: " + this.getNumeroConta() +
                 "\nNome: " + this.pessoa.getNome() +
+                "\nSobrenome: " + this.pessoa.getSobrenome() +
                 "\nCPF: " + this.pessoa.getCpf() +
                 "\nEmail: " + this.pessoa.getEmail() +
                 "\nSaldo: " + Utils.doubleToString(this.getSaldo()) +
